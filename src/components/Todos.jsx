@@ -1,31 +1,56 @@
 import { useState } from "react";
 
-export function Todos() {
-  const [todos, setTodos] = useState(["react", "css"]);
+export default function Todos() {
+  const [todos, setTodos] = useState(["react", "js", "express"]);
 
   const addTodo = (event) => {
     event.preventDefault();
-    console.log("added");
-    let oldTodos = [...todos];
-    oldTodos.push("js");
-    console.log(oldTodos);
-    setTodos(oldTodos);
+    console.log(event.target.title.value);
+    let oldTodo = [...todos];
+    oldTodo.push(event.target.title.value);
+    setTodos(oldTodo);
   };
 
+  const deleteTodo = (index) => {
+    console.log("delete", index);
+    let tempTodo = [...todos];
+    tempTodo = tempTodo.filter((element, idx) => {
+      return idx != index;
+    });
+    setTodos(tempTodo);
+  };
   return (
     <>
-      <div>todos</div>
+      <div>add todo</div>
       <hr />
       <form onSubmit={addTodo}>
-        <input type="text" className="border-2 border-black p-1" />
-        <button className="bg-sky-300 hover:bg-sky-700 border-2 border-black capitalize p-1">
-          Add todos
+        <input
+          id="firstname"
+          name="title"
+          type="text"
+          required="true"
+          className="border-2 border-black p-1 "
+        />
+        <button className="border-2 border-black p-1 rounded h-full">
+          Addtodo
         </button>
       </form>
-      <hr />
-      <ul className="list-disc pl-8">
-        {todos.map((todo) => {
-          return <li>{todo}</li>;
+
+      <ul className="list-disc mx-4">
+        {todos.map((todo, index) => {
+          return (
+            <li>
+              {todo}
+              <button
+                onClick={() => {
+                  deleteTodo(index);
+                }}
+                className="border-2 border-black p-0.5 rounded-full"
+              >
+                delete
+              </button>
+            </li>
+          );
         })}
       </ul>
     </>
