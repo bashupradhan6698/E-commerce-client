@@ -14,7 +14,6 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<LogIn />}></Route>
         </Routes>
-        <Todos />
       </Layout>
     </>
   );

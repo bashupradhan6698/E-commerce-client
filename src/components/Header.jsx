@@ -1,23 +1,56 @@
 import { CiMail } from "react-icons/ci";
-import { FaPhoneVolume } from "react-icons/fa";
+import {
+  FaPhoneVolume,
+  FaRegUser,
+  FaShoppingCart,
+  FaSearch,
+} from "react-icons/fa";
 
 export default function Header() {
   return (
     <>
-      <header>
-        <div className="flex bg-purple-700 items-center justify-between p-2">
-          <div className="flex gap-4 text-xs">
-            <div className="flex text-white">
-              <CiMail className="w-4 h-4" />
-              <span>email@email.com</span>
-            </div>
-            <div className="flex text-white">
-              <FaPhoneVolume className="w-4 h-4" />
-              <span>9861416191</span>
-            </div>
+      <header className="bg-primary ">
+        <nav className="container flex justify-between py-3 items-center">
+          <div className="flex items-center gap-2">
+            <CiMail className="inline" />
+            <span>email@email.com</span>
+            <FaPhoneVolume className="inline" />
+            <span>9861416191</span>
           </div>
-        </div>
-        <div>Hekto</div>
+          <div className=" flex items-center gap-2">
+            <FaRegUser className="inline" />
+            <span>Login</span>
+            <FaShoppingCart className="inline" />
+          </div>
+        </nav>
+      </header>
+      <header className="sm:bg-primary sm:text-white md:bg-secondary">
+        <nav className="container py-5 flex gap-16 items-center">
+          <p className="text-4xl font-bold">Hekto</p>
+
+          <div className="flex grow justify-between">
+            <ul className="flex gap-9 items-center">
+              <li>
+                <a href="" className="text-secondary">
+                  Home
+                </a>
+              </li>
+              <li>
+                <a href="">Products</a>
+              </li>
+              <li>
+                <a href="">Carts</a>
+              </li>
+            </ul>
+
+            <form className="flex">
+              <input className="border-2 border-r-0" type="text" />
+              <button className="bg-secondary text-white p-3">
+                <FaSearch />
+              </button>
+            </form>
+          </div>
+        </nav>
       </header>
     </>
   );
