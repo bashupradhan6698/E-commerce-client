@@ -5,12 +5,13 @@ import {
   FaShoppingCart,
   FaSearch,
 } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <>
       <header className="bg-primary ">
-        <nav className="container flex justify-between py-3 items-center">
+        <nav className="container flex flex-col sm:flex-row justify-between py-3 items-center">
           <div className="flex items-center gap-2">
             <CiMail className="inline" />
             <span>email@email.com</span>
@@ -24,22 +25,26 @@ export default function Header() {
           </div>
         </nav>
       </header>
-      <header className="sm:bg-primary sm:text-white md:bg-secondary">
-        <nav className="container py-5 flex gap-16 items-center">
+      <header className="">
+        <nav className="container flex flex-col py-5 gap-4 items-center md:flex-row lg:gap-8 2xl:gap-16  ">
           <p className="text-4xl font-bold">Hekto</p>
 
-          <div className="flex grow justify-between">
+          <div className="flex flex-col gap-4 md:flex-row grow justify-between">
             <ul className="flex gap-9 items-center">
               <li>
-                <a href="" className="text-secondary">
+                <Link to="/" className="text-secondary">
                   Home
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="">Products</a>
+                <Link to="/products" className="hover:text-secondary">
+                  Products
+                </Link>
               </li>
               <li>
-                <a href="">Carts</a>
+                <Link to="/carts" className="hover:text-secondary">
+                  Carts
+                </Link>
               </li>
             </ul>
 

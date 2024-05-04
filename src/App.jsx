@@ -1,20 +1,18 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useState } from "react";
-import Home from "./pages/Home";
-import LogIn from "./pages/LogIn";
-
-import Layout from "./components/index";
 import Todos from "./components/Todos";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import Products from "./pages/Products";
 
 function App() {
   return (
     <>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/login" element={<LogIn />}></Route>
-        </Routes>
-      </Layout>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+      </Routes>
     </>
   );
 }
