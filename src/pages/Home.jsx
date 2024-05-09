@@ -3,8 +3,7 @@ import Chair from "../assets/images/latestProduct1.png";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
 import { Link } from "react-router-dom";
-import FeaturedProduct from "../components/FeaturedProduct";
-
+import SingleProduct from "../components/SingleProduct";
 const CarouselItem = (props) => {
   return (
     <>
@@ -39,19 +38,30 @@ const CarouselItem = (props) => {
 export default function Home() {
   return (
     <>
-      <section className="">
-        <Carousel showThumbs={false} emulateTouch={true}>
-          <CarouselItem banner="bg-banner-1" />
-          <CarouselItem banner="bg-banner-2" />
-          <CarouselItem banner="bg-banner-3" />
-        </Carousel>
-      </section>
-      <section className="container my-28 grid grid-cols-4 gap-4">
-        <FeaturedProduct />
-        <FeaturedProduct />
-        <FeaturedProduct />
-        <FeaturedProduct />
-      </section>
+      <Carousel showThumbs={false} emulateTouch={true}>
+        <CarouselItem banner="bg-banner-1" />
+        <CarouselItem banner="bg-banner-2" />
+        <CarouselItem banner="bg-banner-3" />
+      </Carousel>
+      <div className="container">
+        <section className=" my-28 grid grid-cols-4 gap-4">
+          <SingleProduct />
+          <SingleProduct />
+          <SingleProduct />
+          <SingleProduct />
+        </section>
+        <p className="text-5xl font-bold text-primary-dark text-center mb-12">
+          Latest Product
+        </p>
+        <section className="grid grid-cols-3 gap-4">
+          <SingleProduct type="latest" />
+          <SingleProduct type="latest" />
+          <SingleProduct type="latest" />
+          <SingleProduct type="latest" />
+          <SingleProduct type="latest" />
+          <SingleProduct type="latest" />
+        </section>
+      </div>
     </>
   );
 }
