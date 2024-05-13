@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Todos() {
-  const [todos, setTodos] = useState(["react", "js", "express"]);
+  const [todos, setTodos] = useState([]);
 
   const addTodo = (event) => {
     event.preventDefault();

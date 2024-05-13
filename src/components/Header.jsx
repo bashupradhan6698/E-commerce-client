@@ -22,14 +22,16 @@ export default function Header() {
           </div>
           <div className=" flex items-center gap-2">
             <FaRegUser className="inline" />
-            <span>Login</span>
+            <Link to="/login">Login</Link>
             <FaShoppingCart className="inline" />
           </div>
         </nav>
       </header>
       <header className="">
         <nav className="container flex flex-col py-5 gap-4 items-center md:flex-row lg:gap-8 2xl:gap-16  ">
-          <p className="text-4xl font-bold text-primary-dark">Hekto</p>
+          <Link path to="/" className="text-4xl font-bold text-primary-dark">
+            Hekto
+          </Link>
 
           <div className="flex flex-col gap-4 md:flex-row grow justify-between">
             <ul className="flex gap-9 items-center">

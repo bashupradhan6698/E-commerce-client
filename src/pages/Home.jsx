@@ -1,8 +1,12 @@
-import Chair from "../assets/images/latestProduct1.png";
-
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 import SingleProduct from "../components/SingleProduct";
 const CarouselItem = (props) => {
   return (
@@ -36,6 +40,25 @@ const CarouselItem = (props) => {
   );
 };
 export default function Home() {
+  // console.log("re-renderrrr");
+  const [products, setProducts] = useState([]);
+  const [latestProducts, setlatestProducts] = useState([]);
+  /*  */
+  // let products = [];
+
+  useEffect(() => {
+    axios
+      .get("https://ecommerce-sagartmg2.vercel.app/api/products/trending")
+      .then((res) => {
+        setProducts(res.data.data);
+      });
+    axios
+      .get("https://ecommerce-sagartmg2.vercel.app/api/products")
+      .then((res) => {
+        setlatestProducts(res.data.products);
+        // console.log(res.data.products);
+      });
+  }, []);
   return (
     <>
       <Carousel showThumbs={false} emulateTouch={true}>
@@ -45,21 +68,40 @@ export default function Home() {
       </Carousel>
       <div className="container">
         <section className=" my-28 grid grid-cols-4 gap-4">
-          <SingleProduct />
-          <SingleProduct />
-          <SingleProduct />
-          <SingleProduct />
+          {products.length == 0 && (
+            <>
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+            </>
+          )}
+          {products.map((product) => {
+            return <SingleProduct product={product} />;
+          })}
         </section>
+
         <p className="text-5xl font-bold text-primary-dark text-center mb-12">
           Latest Product
         </p>
         <section className="grid grid-cols-3 gap-4">
-          <SingleProduct type="latest" />
-          <SingleProduct type="latest" />
-          <SingleProduct type="latest" />
-          <SingleProduct type="latest" />
-          <SingleProduct type="latest" />
-          <SingleProduct type="latest" />
+          {latestProducts.length == 0 && (
+            <>
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+              <Skeleton height={150} />
+            </>
+          )}
+          {latestProducts.map((latestProduct, index) => {
+            //.slice(0,6)
+            if (index > 5) {
+              return null;
+            }
+            return <SingleProduct type="latest" product={latestProduct} />;
+          })}
         </section>
       </div>
     </>
