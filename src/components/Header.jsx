@@ -6,10 +6,22 @@ import {
   FaSearch,
 } from "react-icons/fa";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setReduxUser, logoutReduxUser } from "../redux/userSlice";
 
-export default function Header() {
+export default function Header({ user }) {
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
+  const reduxUser = useSelector((reduxStore) => {
+    return reduxStore.user.value;
+  });
+  const navigate = useNavigate();
+
+  const handlelogout = () => {
+    dispatch(logoutReduxUser());
+    navigate("/login");
+  };
   return (
     <>
       <header className="bg-primary ">
@@ -21,8 +33,13 @@ export default function Header() {
             <span>9861416191</span>
           </div>
           <div className=" flex items-center gap-2">
+            {reduxUser?.name && <span>user : {reduxUser.name}</span>}
+            {reduxUser ? (
+              <button onClick={handlelogout}>Logout</button>
+            ) : (
+              <Link to="/login">Login</Link>
+            )}
             <FaRegUser className="inline" />
-            <Link to="/login">Login</Link>
             <FaShoppingCart className="inline" />
           </div>
         </nav>
@@ -57,6 +74,17 @@ export default function Header() {
                 </Link>
               </li>
               <li>
+                {/* url==="/products" tecxt-secondary */}
+                <Link
+                  to="/products/create"
+                  className={`${
+                    pathname == "/products/create" ? "text-secondary" : ""
+                  } hover:text-secondary`}
+                >
+                  Create Products
+                </Link>
+              </li>
+              <li>
                 <Link
                   to="/carts"
                   className={`${
@@ -68,10 +96,20 @@ export default function Header() {
               </li>
             </ul>
 
-            <form className="flex">
+            <form
+              className="flex"
+              onSubmit={(event) => {
+                event.preventDefault();
+                // console.log(event.target.search_term.value);
+                navigate(
+                  `/products?search_term=${event.target.search_term.value}`
+                );
+              }}
+            >
               <input
+                name="search_term"
                 className="border-2 border-r-0 px-2 focus:border-secondary"
-                type="text"
+                type="search"
               />
               <button className="bg-secondary text-white p-3">
                 <FaSearch />

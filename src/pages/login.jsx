@@ -3,23 +3,32 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link, useNavigate } from "react-router-dom";
+import { setReduxUser } from "../redux/userSlice";
+import { useDispatch } from "react-redux";
 
-export default function Login() {
-  const navigate = useNavigate();
+export default function Login({ setUser }) {
+  const navigate = useNavigate(); //for naviagation to other pages after logging in
+  const dispatch = useDispatch(); //for redux
   // const [error, setError] = useState("");
+
+  const [email, setEmail] = useState("messi@email.com");
+  const [password, setPassword] = useState("barcelona");
   const handleSubmit = (event) => {
     event.preventDefault();
 
     axios
       .post("https://ecommerce-sagartmg2.vercel.app/api/users/login", {
-        email: event.target.email.value,
-        password: event.target.password.value,
+        email: email,
+        password: password,
       })
       .then((res) => {
         toast.success("Login Success!", {
           theme: "dark",
           position: "top-right",
         });
+        // setUser(res.data.user.name); props drilling normal setuer function
+        dispatch(setReduxUser(res.data.user));
+        localStorage.setItem("access_token", res.data.access_token);
         navigate("/");
         // , {
         //   position: "top-right",
@@ -34,6 +43,7 @@ export default function Login() {
         // });
       })
       .catch((err) => {
+        // console.log(err);
         // setError(err.response.data.msg);
         toast.error(err.response.data.msg);
       });
@@ -60,6 +70,10 @@ export default function Login() {
                 </label>
                 <div className="mt-2">
                   <input
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                    }}
                     id="email"
                     name="email"
                     type="email"
@@ -86,6 +100,10 @@ export default function Login() {
                 </div>
                 <div className="mt-2">
                   <input
+                    value={password}
+                    onChange={(e) => {
+                      setPassword(e.target.value);
+                    }}
                     id="password"
                     name="password"
                     type="password"

@@ -18,6 +18,7 @@ export default function Signup() {
         role: event.target.role.value,
       })
       .then((res) => {
+        //if status code is 200 status_code==200
         toast.success("Login Success!", {
           theme: "dark",
           position: "top-right",
@@ -36,8 +37,10 @@ export default function Signup() {
         // });
       })
       .catch((err) => {
+        //status code other than 200 status_code !=200
+        console.log(err.response.data);
         // setError(err.response.data.msg);
-        toast.error(err.response.data.msg);
+        toast.error(err.response.data.error);
       });
   };
   return (

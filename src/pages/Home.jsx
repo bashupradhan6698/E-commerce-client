@@ -39,7 +39,7 @@ const CarouselItem = (props) => {
     </>
   );
 };
-export default function Home() {
+export default function Home({ user }) {
   // console.log("re-renderrrr");
   const [products, setProducts] = useState([]);
   const [latestProducts, setlatestProducts] = useState([]);
@@ -56,7 +56,7 @@ export default function Home() {
       .get("https://ecommerce-sagartmg2.vercel.app/api/products")
       .then((res) => {
         setlatestProducts(res.data.products);
-        // console.log(res.data.products);
+        // console.log(es.data.products);
       });
   }, []);
   return (
@@ -77,7 +77,10 @@ export default function Home() {
             </>
           )}
           {products.map((product) => {
-            return <SingleProduct product={product} />;
+            // if (index > 1) {
+            //   return null;
+            // }
+            return <SingleProduct user={user} product={product} />;
           })}
         </section>
 
